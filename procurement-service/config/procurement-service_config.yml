@@ -1,18 +1,14 @@
-##############################
-# Library A instance Config  #
-##############################
+######################################
+# Procurement Service Config         #
+######################################
 
 # Apollo STOMP Broker Configuration
 # FIXME - Replace 99999 with your ID
 stompQueueName: /queue/99999.book.orders
 
-# Library A subscribes to all book categories
+# Procurement Service needs to publish to all topics!
 # FIXME - Replace 99999 with your ID
-# If book.* doesn't work, try book.all
-stompTopicName: /topic/99999.book.*
-
-# Name for library A
-libraryName: library-a
+stompTopicPrefix: /topic/99999.book.
 
 # TODO: Apollo STOMP Broker URL and login
 #apolloUser: "admin"
@@ -20,16 +16,17 @@ libraryName: library-a
 #apolloHost: "54.215.210.214"
 #apolloPort: 61613
 
+
 # HTTP-specific options.
 http:
-  # Root Path http://localhost:8001/library/v1  
-  rootPath: /library/*
+  # Root Path http://{host}:{port}/xxx
+  rootPath: /*
 
   # The port on which the HTTP server listens for service requests.
-  port: 8001
+  port: 9090
 
   # The port on which the HTTP server listens for administrative requests.
-  adminPort: 9001
+  adminPort: 9000
 
 # Logging settings.
 logging:
@@ -62,12 +59,12 @@ logging:
     threshold: ALL
     
     # The file to which current statements will be logged.
-    currentLogFilename: ./logs/library-a.log
+    currentLogFilename: ./logs/library.log
     
     # When the log file rotates, the archived log will be renamed to this and gzipped. The
     # %d is replaced with the previous day (yyyy-MM-dd). Custom rolling windows can be created
     # by passing a SimpleDateFormat-compatible format as an argument: "%d{yyyy-MM-dd-hh}".
-    archivedLogFilenamePattern: ./logs/library-a-%d.log.gz
+    archivedLogFilenamePattern: ./logs/library-%d.log.gz
     
     # The number of archived files to keep.
     archivedFileCount: 5
